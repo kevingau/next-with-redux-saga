@@ -1,53 +1,28 @@
 export const actionTypes = {
   FAILURE: 'FAILURE',
-  INCREMENT: 'INCREMENT',
-  DECREMENT: 'DECREMENT',
-  RESET: 'RESET',
-  LOAD_DATA: 'LOAD_DATA',
-  LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS',
-  START_CLOCK: 'START_CLOCK',
-  TICK_CLOCK: 'TICK_CLOCK',
   HYDRATE: 'HYDRATE',
-}
+  SIGN_IN: 'SIGN_IN',
+  SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
+};
 
 export function failure(error) {
   return {
     type: actionTypes.FAILURE,
     error,
-  }
+  };
 }
 
-export function increment() {
-  return { type: actionTypes.INCREMENT }
-}
-
-export function decrement() {
-  return { type: actionTypes.DECREMENT }
-}
-
-export function reset() {
-  return { type: actionTypes.RESET }
-}
-
-export function loadData() {
-  return { type: actionTypes.LOAD_DATA }
-}
-
-export function loadDataSuccess(data) {
+export function signIn(email, password) {
   return {
-    type: actionTypes.LOAD_DATA_SUCCESS,
-    data,
-  }
+    type: actionTypes.SIGN_IN,
+    email,
+    password,
+  };
 }
 
-export function startClock() {
-  return { type: actionTypes.START_CLOCK }
-}
-
-export function tickClock(isServer) {
+export function signInSuccess(email) {
   return {
-    type: actionTypes.TICK_CLOCK,
-    light: !isServer,
-    ts: Date.now(),
-  }
+    type: actionTypes.SIGN_IN_SUCCESS,
+    email,
+  };
 }

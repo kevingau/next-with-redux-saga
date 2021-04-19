@@ -1,29 +1,17 @@
-import { all, call, delay, put, take, takeLatest } from 'redux-saga/effects'
-import { actionTypes, failure, loadDataSuccess, tickClock } from './actions'
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { actionTypes, failure, signInSuccess } from './actions';
 
-function* runClockSaga() {
-  yield take(actionTypes.START_CLOCK)
-  while (true) {
-    yield put(tickClock(false))
-    yield delay(1000)
-  }
-}
-
-function* loadDataSaga() {
+function* signInSaga({ email, password }) {
   try {
-    const res = yield fetch('https://jsonplaceholder.typicode.com/users')
-    const data = yield res.json()
-    yield put(loadDataSuccess(data))
+    const res = yield call(fetch, 'https://jsonplaceholder.typicode.com/posts/1');
+    yield put(signInSuccess(email));
   } catch (err) {
-    yield put(failure(err))
+    yield put(failure(err));
   }
 }
 
 function* rootSaga() {
-  yield all([
-    call(runClockSaga),
-    takeLatest(actionTypes.LOAD_DATA, loadDataSaga),
-  ])
+  yield all([takeLatest(actionTypes.SIGN_IN, signInSaga)]);
 }
 
-export default rootSaga
+export default rootSaga;
